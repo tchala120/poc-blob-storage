@@ -32,6 +32,9 @@ const Home = () => {
 
 			return axios.put('/api/upload', formData)
 		},
+		onSuccess: () => {
+			setFileList([])
+		},
 	})
 
 	const result = uploadMutation.data?.data
