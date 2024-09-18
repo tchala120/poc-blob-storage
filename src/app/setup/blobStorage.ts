@@ -1,10 +1,15 @@
-import { AnonymousCredential, BlobServiceClient } from '@azure/storage-blob'
+import { BlobServiceClient, StorageSharedKeyCredential } from '@azure/storage-blob'
 
-const client = new BlobServiceClient(
-	`https://${process.env.NEXT_PUBLIC_ACCOUNT_NAME}.blob.core.windows.net/?${process.env.NEXT_PUBLIC_SAS_TOKEN}`,
-	new AnonymousCredential(),
+export const credential = new StorageSharedKeyCredential(
+	process.env.NEXT_PUBLIC_ACCOUNT_NAME,
+	process.env.NEXT_PUBLIC_ACCOUNT_KEY,
 )
 
-export const blobContainer = client.getContainerClient(process.env.NEXT_PUBLIC_CONTAINER_NAME)
+const blobServiceClient = new BlobServiceClient(
+	`https://${process.env.NEXT_PUBLIC_ACCOUNT_NAME}.blob.core.windows.net`,
+	credential,
+)
 
-export default client
+export const blobContainer = blobServiceClient.getContainerClient(process.env.NEXT_PUBLIC_CONTAINER_NAME)
+
+export default blobServiceClient
