@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { zfd } from 'zod-form-data'
 
-import { blobContainer } from '@/setup/blobStorage'
+import blobServiceClient from '@/setup/blobStorage'
 
 const schema = zfd.formData({
 	file: zfd.file(),
@@ -10,7 +10,9 @@ const schema = zfd.formData({
 export const PUT = async (request: NextRequest) => {
 	const { file } = schema.parse(await request.formData())
 
-	const blobClient = blobContainer.getBlockBlobClient(file.name)
+	const blobContainerClient = blobServiceClient.getContainerClient('aster-private-container')
+
+	const blobClient = blobContainerClient.getBlockBlobClient(file.name)
 
 	const toBuffer = await file.arrayBuffer()
 
