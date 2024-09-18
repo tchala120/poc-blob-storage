@@ -11,5 +11,7 @@ declare namespace NodeJS {
 		NEXT_PUBLIC_ACCOUNT_NAME: string
 		NEXT_PUBLIC_SAS_TOKEN: string
 		NEXT_PUBLIC_CONTAINER_NAME: string
+		NEXT_PUBLIC_ACCOUNT_NAME: string
+		NEXT_PUBLIC_ACCOUNT_KEY: string
 	}
 }
